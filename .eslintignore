@@ -1,0 +1,7 @@
+src/registerServiceWorker.js
+/build
+/config
+/typings
+/public
+node_modules
+tsconfig.json
