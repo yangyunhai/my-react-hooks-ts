@@ -1,7 +1,5 @@
-import React,{ FC } from 'react'
+import React, { FC } from 'react';
 const Loading: FC = () => {
-  return (
-    <div>加载中</div>
-  )
-}
-export default Loading
+  return <div className="loading-warp"></div>;
+};
+export default Loading;

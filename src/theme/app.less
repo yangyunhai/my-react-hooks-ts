@@ -1,3 +1,29 @@
-body{
-    background-color: #000;
+body {
+  background-color: @body-color !important;
+}
+#app .loading-warp {
+  text-align: center;
+}
+.app-wrapper {
+  max-width: 1280px;
+  width: 1000%;
+  margin: 0px auto;
+  height: 100vh;
+}
+.main-wrapper {
+  display: flex;
+  height: calc(100vh - 103px);
+  .main-com {
+    background-color: @white-color;
+    margin-left: 20px;
+    flex: 1;
+  }
+  .main-mens {
+    background-color: @white-color;
+  }
+  .page-warp {
+    padding: 20px 30px;
+    margin-top: 20px;
+    background-color: @white-color;
+  }
 }

@@ -1,34 +1,31 @@
-import React,{ FC, lazy, Suspense } from 'react'
-import { Route,Redirect, Switch, BrowserRouter } from 'react-router-dom'
-import routes from '@/routes/index'
+import React, { FC, lazy, Suspense } from 'react';
+import { Route, Switch,Redirect, BrowserRouter } from 'react-router-dom';
+import { StoreState } from '@/store/StoreState';
+import { useSelector } from 'react-redux';
 import Loading from '@/Compoents/Loading';
 
-const Login = lazy(() => import('@/pages/login/Login'))
-const NoMatch = lazy(() => import('@/pages/NoMatch'))
+const AppLayout = lazy(() => import('@/pages/AppLayout'));
+const Login = lazy(() => import('@/pages/Login/Login'));
+const MainLayout = lazy(() => import('@/pages/MainLayout'));
 
-const RouteWithSubRoutes = (route) => {
+const App: FC = () => {
+  const isLogin = useSelector<StoreState, boolean>(
+    (state: StoreState) => state.isLogin
+  );
   return (
-    <Route
-      path={route.path}
-      render={(props) => <route.component {...props} routes={route.routes} />}
-    />
-  )
-}
-
-const App: FC = () => (
-  <BrowserRouter>
-    <Suspense fallback={<Loading></Loading>}>
-      <Switch>
-        <Route path="/login" key="login">
-          <Login></Login>
-        </Route>
-        {routes.map((route) => (
-          <RouteWithSubRoutes key={route.key} {...route} />
-        ))}
-        <Redirect path="*" to="/login"></Redirect>
-      </Switch>
-    </Suspense>
-  </BrowserRouter>
-)
-
-export default App
+    <BrowserRouter>
+      <Suspense fallback={<Loading></Loading>}>
+        <AppLayout>
+          <Switch>
+            <Route path="/login" key="login">
+              <Login></Login>
+            </Route>
+            {isLogin ? <MainLayout /> : null}
+            <Redirect from="/*" to="/login" />
+          </Switch>
+        </AppLayout>
+      </Suspense>
+    </BrowserRouter>
+  );
+};
+export default App;

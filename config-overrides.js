@@ -5,7 +5,8 @@ const {
   overrideDevServer,
   addWebpackAlias,
   fixBabelImports,
-  addLessLoader
+  addLessLoader,
+  addWebpackPlugin
 } = require('customize-cra')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BundleAnalyzerPlugin =
@@ -14,9 +15,8 @@ const BundleAnalyzerPlugin =
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const webpack = require('webpack')
 const path = require('path')
-const darkThemeVars = require('antd/dist/dark-theme')
+const defaultThemeVars = require('antd/dist/default-theme')
 const ESLintPlugin = require('eslint-webpack-plugin');
-console.log('process.env.BASE_API==>', process.env.BASE_API)
 // 打包体积优化
 const addOptimization = () => (config) => {
   if (process.env.NODE_ENV === 'production') {
@@ -45,9 +45,6 @@ const addOptimization = () => (config) => {
     }
     // 是否开启sourceMap
     config.devtool = process.env.NODE_ENV !== 'production';
-    config.push(new ESLintPlugin({
-      fix:true
-    }))
     // 添加js打包gzip配置
     config.plugins.push(
       new AntdDayjsWebpackPlugin(),
@@ -66,24 +63,27 @@ const addOptimization = () => (config) => {
   return config
 }
 
-const devServe = () => (config) => {
-  return {
-    ...config,
-    hot: true,
-    open: true, // 是否自动打开浏览器
-    proxy: {
-      // 配置代理（只在本地开发有效，上线无效）
-      '/api': {
-        target: 'http://baidu.com', // 这是本地用node写的一个服务，用webpack-dev-server起的服务默认端口是8080
-        pathRewrite: {
-          // 后台在转接的时候url中是没有 /api 的
-          '/api': ''
-        },
-        changeOrigin: true // 加了这个属性，那后端收到的请求头中的host是目标地址 target
-      }
-    }
-  }
+/**
+ * 添加全局less
+ * @param {*} config 
+ * @returns 
+ */
+const addLessStyle=()=>(config)=>{
+  const loaders = config.module.rules.find(rule => Array.isArray(rule.oneOf)).oneOf;
+  const lessIndex=loaders.findIndex((item)=>{
+    return item.test&&item.test.toString().indexOf('.less')!=-1
+  })
+  if(lessIndex!=-1){
+  loaders[lessIndex].use.push({
+       loader: 'style-resources-loader',
+       options: {
+           patterns: path.resolve(__dirname, 'src/theme/global.less')//全局引入公共的scss 文件
+       }
+   })
+ }
+ return config
 }
+
 
 module.exports = {
   webpack: override(
@@ -91,6 +91,12 @@ module.exports = {
     addWebpackAlias({
       '@': path.resolve('src')
     }),
+    addWebpackPlugin(new ESLintPlugin({
+      fix:true,
+      extensions: ['ts', 'tsx','less'],
+      // formatter: require('eslint-friendly-formatter'),
+      // eslintPath:require.resolve('eslint'),
+    })),
     addOptimization(),
     // 针对antd 实现按需打包：根据import来打包 (使用babel-plugin-import)
     fixBabelImports('import', {
@@ -105,12 +111,30 @@ module.exports = {
         hack: `true;@import "${require.resolve(
           'antd/lib/style/color/colorPalette.less'
         )}";`,
-        ...darkThemeVars,
-        '@primary-color': '#6e41ff'
+        ...defaultThemeVars,
+        '@primary-color': '#6e41ff',
+        "@heading-color": "#000000d9"
       },
       localIdentName: '[local]--[hash:base64:5]'
     }),
-    
+    addLessStyle()
   ),
-  devServer: overrideDevServer(devServe())
+  devServer: overrideDevServer((config) => {
+    return {
+      ...config,
+      hot: true,
+      open: true, // 是否自动打开浏览器
+      proxy: {
+        // 配置代理（只在本地开发有效，上线无效）
+        '/api': {
+          target: 'http://baidu.com', // 这是本地用node写的一个服务，用webpack-dev-server起的服务默认端口是8080
+          pathRewrite: {
+            // 后台在转接的时候url中是没有 /api 的
+            '/api': ''
+          },
+          changeOrigin: true // 加了这个属性，那后端收到的请求头中的host是目标地址 target
+        }
+      }
+    }
+  })
 }
