@@ -4,14 +4,11 @@ module.exports = {
     es6: true
   },
   extends: [
-    'airbnb',
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended'
+    // 'eslint:all',
+    // 'react-app', //  react帮配置好了一些语法，譬如箭头函数
+    // 'airbnb',
+    // 'plugin:prettier/recommended' // prettier配置
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
-  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
@@ -20,7 +17,6 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module'
   },
-  plugins: ['react', '@typescript-eslint'],
   settings: {
     react: {
       version: 'detect'
@@ -62,7 +58,6 @@ module.exports = {
     'no-var': 'error',
     semi: 0,
     quotes: [2, 'single'],
-    // @fixable 必须使用 === 或 !==，禁止使用 == 或 !=，与 null 比较时除外
     eqeqeq: [
       'warn',
       'always',
@@ -72,6 +67,12 @@ module.exports = {
     ],
     'no-use-before-define': 'off',
     'import/newline-after-import': 'off',
-    'react/self-closing-comp': 'off'
+    'react/self-closing-comp': 'off',
+    'linebreak-style': 'off',
+    'react/jsx-curly-spacing':'off',
+    "comma-spacing": [2, {
+      "before": false,
+      "after": true
+  }],
   }
 }

@@ -1,6 +1,7 @@
 module.exports = {
   printWidth: 80,
   tabWidth: 2,
+  endOfLine: 'auto',
   trailingComma: 'none', //尾随逗号
   bracketSpacing: true,
   jsxBracketSameLine: false,

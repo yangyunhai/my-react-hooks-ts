@@ -109,7 +109,8 @@ module.exports = {
         '@primary-color': '#6e41ff'
       },
       localIdentName: '[local]--[hash:base64:5]'
-    })
+    }),
+    
   ),
   devServer: overrideDevServer(devServe())
 }
