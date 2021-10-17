@@ -54,7 +54,6 @@ const request = (options: any): Promise<ResponetFrom> => {
     data: null,
     msg: null
   };
-  console.log(axiosOptions);
   return new Promise(resolve => {
     axios(axiosOptions)
       .then((res: any) => {
