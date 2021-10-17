@@ -1,15 +1,15 @@
 import axios from 'axios';
 import qs from 'qs';
-console.log(process.env.BASE_API)
+console.log(process.env.BASE_API);
 //base api
 enum types {
   POST = 'POST',
-  GET = 'GET',
+  GET = 'GET'
 }
 
 enum State {
   SUCCESS = 'POST',
-  ERROR = 'GET',
+  ERROR = 'GET'
 }
 
 export interface ResponetFrom {
@@ -25,13 +25,13 @@ axios.interceptors.request.use(
   },
   function (error) {
     return Promise.reject(error);
-  },
+  }
 );
 
 /**
  * http请求
- * @param options 
- * @returns 
+ * @param options
+ * @returns
  */
 const request = (options: any): Promise<ResponetFrom> => {
   const axiosOptions = Object.assign(
@@ -39,25 +39,25 @@ const request = (options: any): Promise<ResponetFrom> => {
       transformResponse: [data => data],
       headers: {
         Accept: 'application/json',
-        ContentType: 'application/json;charset=UTF-8',
+        ContentType: 'application/json;charset=UTF-8'
       },
       withCredentials: false,
       timeout: 400000,
       paramsSerializer: params => qs.stringify(params),
       validateStatus: status => status >= 200 && status < 300,
-      baseURL:process.env.BASE_API
+      baseURL: process.env.BASE_API
     },
-    options,
+    options
   );
 
   const data: ResponetFrom = {
     data: null,
-    msg: null,
+    msg: null
   };
-  console.log(axiosOptions)
+  console.log(axiosOptions);
   return new Promise(resolve => {
     axios(axiosOptions)
-      .then((res:any) => {
+      .then((res: any) => {
         data.data = JSON.parse(res.data);
         data.msg = State.SUCCESS;
         resolve(data);
@@ -75,11 +75,14 @@ const request = (options: any): Promise<ResponetFrom> => {
  * @param {*} url
  * @param {*} data
  */
-export const httpPost = (url: string, data: any = {}) : Promise<ResponetFrom>=> {
+export const httpPost = (
+  url: string,
+  data: any = {}
+): Promise<ResponetFrom> => {
   return request({
     url,
-    method:types.POST,
-    data,
+    method: types.POST,
+    data
   });
 };
 
@@ -89,20 +92,26 @@ export const httpPost = (url: string, data: any = {}) : Promise<ResponetFrom>=> 
  * @param params
  * @returns
  */
-export const httpGet = (url: string, params: any = {}) : Promise<ResponetFrom>=> {
+export const httpGet = (
+  url: string,
+  params: any = {}
+): Promise<ResponetFrom> => {
   return request({
     url,
-    method:types.GET,
-    params,
+    method: types.GET,
+    params
   });
 };
 
 /**
  * http post formData 请求方式
  */
-export const httpFormData = (url: string, params: any = {}) : Promise<ResponetFrom>=> {
+export const httpFormData = (
+  url: string,
+  params: any = {}
+): Promise<ResponetFrom> => {
   const headers = {
-    ['Content-Type']: 'multipart/form-data',
+    ['Content-Type']: 'multipart/form-data'
   };
   const formData = new FormData();
   for (const field in params) {
@@ -112,14 +121,14 @@ export const httpFormData = (url: string, params: any = {}) : Promise<ResponetFr
   }
   return request({
     url,
-    method:types.POST,
+    method: types.POST,
     data: formData,
-    headers,
+    headers
   });
 };
 
 export default {
   httpPost,
   httpGet,
-  httpFormData,
+  httpFormData
 };

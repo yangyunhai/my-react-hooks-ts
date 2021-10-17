@@ -12,11 +12,11 @@ export const filterRoute2Path = (
   ): any => {
   const filterList: Array<Array<RouterType>> = routes
     .filter(route => {
-      return roles && roles.indexOf(route.key) != -1;
+      return roles && roles.indexOf(route.key) !== -1;
     })
     .map((route: RouterType) => {
       return route.children.filter(route => {
-        return roles && roles.indexOf(route.key) != -1;
+        return roles && roles.indexOf(route.key) !== -1;
       });
     });
   return filterList.length > 0 && filterList[0][0] ? filterList[0][0].path : '';

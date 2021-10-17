@@ -37,7 +37,7 @@ const AppLayout: FC = () => {
           {/* 其他路由 */}
           {
             list.filter((route)=>{
-              return userInfo.roles&&userInfo.roles.indexOf(route.key)!=-1
+              return userInfo.roles&&userInfo.roles.indexOf(route.key)!==-1
             }).map(route => {
               return (
                 <Route
