@@ -10,7 +10,7 @@ import { filterRoute2Path } from '@/uilts/index';
 import './Login.less';
 
 const Login: FC = () => {
-  const [state,writeState]=useLocalStorage('token','');
+  const [,writeState]=useLocalStorage('token','');
   const dispatch = useDispatch();
   const history = useHistory();
   

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import qs from 'qs';
-console.log(process.env.BASE_API);
 //base api
 enum types {
   POST = 'POST',
@@ -13,7 +12,8 @@ enum State {
 }
 
 export interface ResponetFrom {
-  data: any;
+  data?: any;
+  list?: any;
   msg: State;
 }
 
@@ -45,26 +45,21 @@ const request = (options: any): Promise<ResponetFrom> => {
       timeout: 400000,
       paramsSerializer: params => qs.stringify(params),
       validateStatus: status => status >= 200 && status < 300,
-      baseURL: process.env.BASE_API
+      baseURL: process.env.REACT_APP_BASE_URL
     },
     options
   );
 
-  const data: ResponetFrom = {
-    data: null,
-    msg: null
-  };
   return new Promise(resolve => {
     axios(axiosOptions)
       .then((res: any) => {
-        data.data = JSON.parse(res.data);
-        data.msg = State.SUCCESS;
-        resolve(data);
+        resolve(JSON.parse(res.data));
       })
       .catch(error => {
-        data.data = error;
-        data.msg = State.ERROR;
-        resolve(data);
+        resolve({
+          data: error,
+          msg: State.ERROR
+        });
       });
   });
 };
@@ -110,7 +105,7 @@ export const httpFormData = (
   params: any = {}
 ): Promise<ResponetFrom> => {
   const headers = {
-    ['Content-Type']: 'multipart/form-data'
+    'Content-Type': 'multipart/form-data'
   };
   const formData = new FormData();
   for (const field in params) {

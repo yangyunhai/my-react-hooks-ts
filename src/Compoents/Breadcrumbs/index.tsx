@@ -42,7 +42,9 @@ const Breadcrumbs: FC = () => {
     <Breadcrumb className="breadcrumb-warp">
       {
         mens.map((item:selectItem,index:number)=>{
-          return  <Breadcrumb.Item key={index}>{item.title}</Breadcrumb.Item>;
+          return  <Breadcrumb.Item key={index}>
+                    {item.title}
+                  </Breadcrumb.Item>;
         })
       }
      

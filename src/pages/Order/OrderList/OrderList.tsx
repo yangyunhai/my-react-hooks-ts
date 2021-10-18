@@ -1,6 +1,6 @@
 import React, { FC, useState,useEffect } from 'react';
-import { Table } from 'antd';
-import UserApi from '@/apis/UserApi'
+import { Table,Form, Input, Button } from 'antd';
+import OrderApi from '@/apis/OrderApi'
 interface TableColumnType {
   title: string,
   dataIndex: string,
@@ -49,11 +49,16 @@ const columns:Array<TableColumnType> = [
 const OrderList: FC = () => {
   const [tableList,setTableList]=useState<Array<TableDataType>>([]);
   const [tableLoading,setTableLoading]=useState<boolean>(false);
-  const onQuery=()=>{
+  const [form] = Form.useForm();
+
+  const onFinish=(fieldsValue: any)=>{
+    onQuery(fieldsValue);
+  }
+
+  const onQuery=(fieldsValue:any={})=>{
     setTableLoading(true)
-    UserApi.getOrderList({}).then((res)=>{
-      debugger
-      setTableList(res.data)
+    OrderApi.getOrderList(fieldsValue).then((res)=>{
+      setTableList(res.list)
     }).finally(()=>{
       setTableLoading(false)
     })
@@ -63,7 +68,25 @@ const OrderList: FC = () => {
     onQuery();
   },[])
   return (
-    <section className="page-warp order-list-warp">
+    <section className="main-page-warp order-list-warp">
+      <Form
+        className="main-page-table-form"
+        layout='inline'
+        form={form}
+        onFinish={onFinish}>
+
+        <Form.Item label="用户名称">
+          <Input placeholder="请输入用户名称!" />
+        </Form.Item>
+
+        <Form.Item label="商品名称">
+          <Input placeholder="请输入商品名称!" />
+        </Form.Item>
+
+        <Form.Item>
+          <Button htmlType="submit" type="primary">查询</Button>
+        </Form.Item>
+      </Form>
       <Table columns={columns} dataSource={tableList} loading={tableLoading}/>
     </section>
   );

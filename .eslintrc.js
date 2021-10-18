@@ -18,7 +18,8 @@ module.exports = {
     }
   },
   rules: {
-    // "error"/"off" 开启/关闭prettier
+    "no-anonymous-default-export":"off",
+    "no-unused-vars":"off",
     "no-unused-vars": 'off',
     'prettier/prettier': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

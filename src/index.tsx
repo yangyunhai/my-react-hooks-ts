@@ -8,6 +8,7 @@ import reportWebVitals from '@/reportWebVitals';
 import 'dayjs/locale/zh-cn';
 import '@/theme/app.less';
 import App from './App';
+import '@/mock/index';
 dayjs.locale('zh-cn');
 
 ReactDOM.render(

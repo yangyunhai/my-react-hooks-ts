@@ -1,14 +1,5 @@
-import { httpGet, ResponetFrom } from './request';
-
-/**
- * 查询订单列表
- * @param params 
- * @returns 
+/** 
+ * 用户模块接口
  */
-const getOrderList = (params: any): Promise<ResponetFrom> => {
-  return httpGet('/order/getOrderList', params);
-};
 
-export default {
-  getOrderList
-};
+export default {}

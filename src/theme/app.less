@@ -1,15 +1,17 @@
 body {
   background-color: @body-color !important;
 }
-#app .loading-warp {
-  text-align: center;
-}
+
 .app-wrapper {
   max-width: 1280px;
   width: 1000%;
   margin: 0px auto;
   height: 100vh;
+  .loading-warp {
+    text-align: center;
+  }
 }
+
 .main-wrapper {
   display: flex;
   height: calc(100vh - 103px);
@@ -21,9 +23,12 @@ body {
   .main-mens {
     background-color: @white-color;
   }
-  .page-warp {
+  .main-page-warp {
     padding: 20px 30px;
     margin-top: 20px;
     background-color: @white-color;
+  }
+  .main-page-table-form {
+    margin-bottom: 30px;
   }
 }
