@@ -19,7 +19,7 @@ const App: FC = () => {
             <Route path="/login" key="login">
               <Login></Login>
             </Route>
-            {isLogin ? <MainLayout /> : null}
+            { isLogin ? <MainLayout /> : null }
             <Redirect from="/*" to="/login" />
           </Switch>
         </AppLayout>

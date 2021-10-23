@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
+const getObj=(value:any)=>{
+  return typeof value === 'object' ? JSON.stringify(value) : `${value}`
+}
 /**
  * 本地存储对象
  */
 const storage = {
-  getItem(key) {
+  getItem(key:string) {
     return localStorage.getItem(key);
   },
-  setItem(key, value) {
-    localStorage.setItem(
-      key,
-      typeof value === 'object' ? JSON.stringify(value) : `${value}`
-    );
+  setItem(key:string, value:any) {
+    localStorage.setItem(key,getObj(value));
   },
   removeItem(key) {
     localStorage.removeItem(key);
@@ -32,10 +32,9 @@ function tryParse(value) {
  */
 export default function useLocalStorage(key: string, defaultValue: any) {
   const getDefault = key => {
-    return storage.getItem(key) === null
-      ? defaultValue
-      : tryParse(storage.getItem(key));
+    return storage.getItem(key) === null ? defaultValue : tryParse(storage.getItem(key));
   };
+
   const [state, setState] = useState(getDefault(key));
 
   const writeState = value => {

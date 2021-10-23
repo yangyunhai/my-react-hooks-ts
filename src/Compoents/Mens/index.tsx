@@ -18,20 +18,20 @@ const { SubMenu } = Menu;
 const getMenuKeys = (pathname: string): menKey => {
   let keys: Array<string> = [];
   let selectKeys: Array<string> = [];
-  const forMap = (item, routesList) => {
+  const getMenMap = (item, routesList) => {
     if (routesList && routesList.length > 0) {
       routesList.map((citem: RouterType) => {
         if (citem.path === pathname) {
           keys.push(item.key);
           selectKeys.push(citem.key);
         } else {
-          forMap(item, citem.children);
+          getMenMap(item, citem.children);
         }
         return citem;
       });
     }
   };
-  forMap(routes[0], routes);
+  getMenMap(routes[0], routes);
   return { selectKeys, keys };
 };
 
@@ -56,11 +56,11 @@ const Mens: FC<Props> = (props: Props) => {
   }, [history.location.pathname]);
   return (
     <Menu
-      theme={theme}
-      style={{ width: 256 }}
-      selectedKeys={selectedKeys}
-      openKeys={defaultOpenKeys}
-      onClick={onHandleClick}
+      theme={ theme }
+      style={ { width: 256 } }
+      selectedKeys={ selectedKeys }
+      openKeys={ defaultOpenKeys }
+      onClick={ onHandleClick }
       mode="inline">
       {routes
         .filter(route => {

@@ -19,6 +19,7 @@ module.exports = {
   },
   rules: {
     "no-anonymous-default-export":"off",
+    "react/jsx-uses-react": 2,
     "no-unused-vars":"off",
     "no-unused-vars": 'off',
     'prettier/prettier': 'off',

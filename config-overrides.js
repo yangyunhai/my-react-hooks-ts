@@ -122,7 +122,7 @@ module.exports = {
     return {
       ...config,
       hot: true,
-      open: true, // 是否自动打开浏览器
+      open: false, // 是否自动打开浏览器
       proxy: {
         // 配置代理（只在本地开发有效，上线无效）
         '/api': {

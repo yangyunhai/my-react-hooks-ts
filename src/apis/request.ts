@@ -120,9 +120,3 @@ export const httpFormData = (
     headers
   });
 };
-
-export default {
-  httpPost,
-  httpGet,
-  httpFormData
-};
