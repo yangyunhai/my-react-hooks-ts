@@ -6,6 +6,7 @@ interface propsType{
   onCancel:(values:any)=>void,
   data:any
 }
+
 function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener('load', () => callback(reader.result));

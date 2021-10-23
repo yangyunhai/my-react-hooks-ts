@@ -21,7 +21,7 @@ Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getOrderList`, 'get', {
 Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getBusinessList`, 'get', {
   success: true,
   msg: '@cparagraph',
-  'list|10': [
+  'list|6': [
     {
       'id|+1': 1, //数字从1开始，后续依次加1
       userName: '@cname', //名字为随机中文名

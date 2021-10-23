@@ -1,5 +1,6 @@
 import { Layout, Form, Input, Button, Checkbox } from 'antd';
 import React, { FC } from 'react';
+import './Login.less';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import routes from '@/routes/index';
@@ -7,7 +8,6 @@ import { dispatchLogin } from '@/store/Actions';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { userInfoType } from '@/store/StoreState';
 import { filterRoute2Path } from '@/uilts/index';
-import './Login.less';
 
 const Login: FC = () => {
   const [,writeState]=useLocalStorage('token','');
@@ -20,8 +20,8 @@ const Login: FC = () => {
     const token=new Date().getTime().toString();
     dispatch(dispatchLogin({isLogin:true,userInfo}));
     writeState(token);
-    console.log(filterRoute2Path(routes,userInfo.roles))
-    history.push("/user/user-role");
+    const homePath=filterRoute2Path(routes,userInfo.roles);
+    history.push(homePath);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -38,8 +38,8 @@ const Login: FC = () => {
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
             initialValues={{ userSetNumber: true }}
-            onFinish={onFinish}
-            onFinishFailed={onFinishFailed}
+            onFinish={ onFinish }
+            onFinishFailed={ onFinishFailed }
             autoComplete="off">
             <Form.Item
               label="登录名称"
