@@ -40,9 +40,6 @@ const AddBusines: FC<propsType> = (props:propsType) => {
     props.onOk(values)
   };  
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className="add-business-warp">
       <Form
@@ -51,7 +48,6 @@ const AddBusines: FC<propsType> = (props:propsType) => {
         wrapperCol={{ span: 16 }}
         initialValues={{ userSetNumber: true }}
         onFinish={ onFinish }
-        onFinishFailed={ onFinishFailed }
         autoComplete="off">
         <Form.Item
           label="商品名称"

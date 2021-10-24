@@ -46,6 +46,8 @@ const addOptimization = () => (config) => {
     }
     // 是否开启sourceMap
     config.devtool = process.env.NODE_ENV !== 'production';
+    // 配置打包后的文件位置
+    config.output.publicPath = './';
     // 添加js打包gzip配置
     config.plugins.push(
       new AntdDayjsWebpackPlugin(),

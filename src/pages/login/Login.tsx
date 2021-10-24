@@ -94,7 +94,7 @@ const Login: FC = () => {
                 type="primary"
                 htmlType="submit"
                 style={{ width: '100%' }}>
-                登录
+                登录（账号随便输入）
               </Button>
             </Form.Item>
           </Form>

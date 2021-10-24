@@ -1,5 +1,5 @@
 import React, { FC, lazy, Suspense } from 'react';
-import { Route, Switch,Redirect, BrowserRouter } from 'react-router-dom';
+import { Route, Switch,Redirect, HashRouter } from 'react-router-dom';
 import { StoreState } from '@/store/StoreState';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,7 @@ const App: FC = () => {
     (state: StoreState) => state.isLogin
   );
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Suspense fallback={<></>}>
         <AppLayout>
           <Switch>
@@ -24,7 +24,7 @@ const App: FC = () => {
           </Switch>
         </AppLayout>
       </Suspense>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
