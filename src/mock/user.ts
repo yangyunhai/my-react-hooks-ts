@@ -1,4 +1,4 @@
-const Mock =require('mockjs');
+import Mock from 'mockjs'
 
 Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/login`, 'post', {
   success: true,

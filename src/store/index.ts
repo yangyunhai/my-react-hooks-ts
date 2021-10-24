@@ -1,7 +1,6 @@
 import { createStore } from 'redux';
 import { StoreState, SetLoginType } from './StoreState';
 import { ReducerType } from '@/store/ReducerType';
-
 import {persistStore, persistReducer} from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
@@ -35,4 +34,5 @@ const myPersistReducer = persistReducer(persistConfig, reducer)
 const store = createStore(myPersistReducer)
 
 export const persistor = persistStore(store)
+
 export default store;

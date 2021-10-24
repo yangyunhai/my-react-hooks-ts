@@ -2,7 +2,7 @@ import React, { FC, useState,useEffect, lazy } from 'react';
 import { Table,Form, Input, Button } from 'antd';
 import OrderApi from '@/apis/OrderApi';
 import './BusinessList.less';
-import DynamicModal from '@/Compoents/DynamicModal';
+import DynamicModal from '@/compoents/DynamicModal';
 import { comMapInte, TableColumnType, TableDataType } from '@/Interface/common';
 const AddBusines=lazy(() => import('./AddBusines'));
 

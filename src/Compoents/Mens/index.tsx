@@ -4,7 +4,7 @@ import './index.less';
 import routes from '@/routes/index';
 import { RouterType } from '@/routes/interface';
 import { useHistory, Link } from 'react-router-dom';
-import SvgIcon from '@/Compoents/SvgIcon';
+import SvgIcon from '@/compoents/SvgIcon';
 
 interface menKey {
   selectKeys: Array<string>;

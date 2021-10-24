@@ -3,9 +3,9 @@ import routes from '@/routes/index';
 import NoMatch from '../pages/NoMatch';
 import { Route } from 'react-router-dom';
 import { RouterType } from "@/routes/interface";
-import Mens from "@/Compoents/Mens";
-import Breadcrumbs from "@/Compoents/Breadcrumbs";
-import Header from "@/Compoents/Header";
+import Mens from "@/compoents/Mens";
+import Breadcrumbs from "@/compoents/Breadcrumbs";
+import Header from "@/compoents/Header";
 import { useSelector } from 'react-redux';
 import { userInfoType,StoreState } from '@/store/StoreState';
 
