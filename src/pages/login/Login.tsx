@@ -1,34 +1,49 @@
-import { Layout, Form, Input, Button, Checkbox } from 'antd';
-import React, { FC } from 'react';
+import { Layout, Form, Input, Button, Checkbox,notification  } from 'antd';
+import React, { FC,useState } from 'react';
 import './Login.less';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import routes from '@/routes/index';
 import { dispatchLogin } from '@/store/Actions';
-import useLocalStorage from '@/hooks/useLocalStorage';
 import { userInfoType } from '@/store/StoreState';
 import { filterRoute2Path } from '@/uilts/index';
-const mockUserInfo={
-  roles:'order,order-list,business-list,user-list,user-role',
-  pic:'https://images.pexels.com/users/avatars/109303118/kyle-karbowski-380.jpeg?auto=compress&fit=crop&h=60&w=60',
+import useLocalStorage from '@/hooks/useLocalStorage';
+import UserApi from '@/apis/UserApi';
+
+interface LoginType{
+  userName:string,
+  userPassword:string,
+  userSetNumber:boolean
 }
+
 const Login: FC = () => {
   const [,writeState]=useLocalStorage('token','');
+  const [loading,setLoading] =useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  
-  const onFinish = (values: any) => {
-    //模拟获取数据了
-    const userInfo:userInfoType={userName:values.userName,...mockUserInfo};
-    const token=new Date().getTime().toString();
-    dispatch(dispatchLogin({isLogin:true,userInfo}));
-    writeState(token);
-    const homePath=filterRoute2Path(routes,userInfo.roles);
-    history.push(homePath);
-  };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+  const onFinish = (values: LoginType) => {
+    UserApi.login(values)
+    .then((res:any)=>{
+      const userInfo:userInfoType={userName:values.userName,...res.data};
+      //存储用户信息
+      dispatch(dispatchLogin({isLogin:true,userInfo}));
+      //独立存储token
+      writeState(userInfo.token);
+      //根据账号权限获取默认第一个跳转页面
+      const homePath=filterRoute2Path(routes,userInfo.roles);
+      history.push(homePath);
+    })
+    .catch(()=>{
+      writeState('');
+      notification.error({
+        message: '温馨提示',
+        description:'账号或密码错误!',
+      });
+    })
+    .finally(()=>{
+      setLoading(false)
+    })
   };
 
   return (
@@ -42,7 +57,6 @@ const Login: FC = () => {
             wrapperCol={{ span: 16 }}
             initialValues={{ userSetNumber: true }}
             onFinish={ onFinish }
-            onFinishFailed={ onFinishFailed }
             autoComplete="off">
             <Form.Item
               label="登录名称"
@@ -67,6 +81,7 @@ const Login: FC = () => {
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Button
+                loading={ loading }
                 size="large"
                 type="primary"
                 htmlType="submit"

@@ -2,6 +2,7 @@ export interface userInfoType {
   userName: string;
   roles: string;
   pic: string;
+  token?: string;
 }
 
 export interface StoreState {

@@ -1,7 +1,7 @@
 const Mock =require('mockjs');
 
 
-Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getOrderList`, 'get', {
+Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getOrderList`, 'post', {
   success: true,
   msg: '@cparagraph',
   'list|10': [
@@ -18,7 +18,7 @@ Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getOrderList`, 'get', {
 });
 
 
-Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getBusinessList`, 'get', {
+Mock.mock(`${process.env.REACT_APP_BASE_URL}/order/getBusinessList`, 'post', {
   success: true,
   msg: '@cparagraph',
   'list|6': [

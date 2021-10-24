@@ -1,7 +1,7 @@
 /** 
  * 订单模块接口
  */
-import { httpGet, ResponetFrom } from './request';
+import { httpPost, ResponetFrom } from './request';
 
 /**
  * 查询订单列表
@@ -9,7 +9,7 @@ import { httpGet, ResponetFrom } from './request';
  * @returns
  */
 const getOrderList = (params: any): Promise<ResponetFrom> => {
-  return httpGet('/order/getOrderList', params);
+  return httpPost('/order/getOrderList', params);
 };
 
 /**
@@ -18,7 +18,7 @@ const getOrderList = (params: any): Promise<ResponetFrom> => {
  * @returns
  */
 const getBusinessList = (params: any): Promise<ResponetFrom> => {
-  return httpGet('/order/getBusinessList', params);
+  return httpPost('/order/getBusinessList', params);
 };
 
 export default {

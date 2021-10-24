@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+
 interface DynamicModalType {
   title: string;
   comKey: string;

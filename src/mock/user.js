@@ -1,7 +1,16 @@
 const Mock =require('mockjs');
 
+Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/login`, 'post', {
+  success: true,
+  msg: '@cparagraph',
+  data:{
+    token:'@time()',
+    roles:'order,order-list,business-list,user-list,user-role',
+    pic:'https://images.pexels.com/users/avatars/109303118/kyle-karbowski-380.jpeg?auto=compress&fit=crop&h=60&w=60',
+  }
+});
 
-Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/getUserList`, 'get', {
+Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/getUserList`, 'post', {
   success: true,
   msg: '@cparagraph',
   'list|5': [
@@ -16,7 +25,7 @@ Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/getUserList`, 'get', {
 });
 
 
-Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/getRoleList`, 'get', {
+Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/getRoleList`, 'post', {
   success: true,
   msg: '@cparagraph',
   'list|6': [

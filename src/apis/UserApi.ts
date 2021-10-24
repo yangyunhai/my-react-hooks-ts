@@ -1,7 +1,16 @@
 /** 
  * 用户模块接口
  */
- import { httpGet, ResponetFrom } from './request';
+ import { httpPost, ResponetFrom } from './request';
+
+ /**
+  * 登录
+  * @param params
+  * @returns
+  */
+  const login = (params: any): Promise<ResponetFrom> => {
+    return httpPost('/user/login', params);
+  };
 
  /**
   * 查询用户列表
@@ -9,7 +18,7 @@
   * @returns
   */
  const getUserList = (params: any): Promise<ResponetFrom> => {
-   return httpGet('/user/getUserList', params);
+   return httpPost('/user/getUserList', params);
  };
  
  /**
@@ -18,10 +27,11 @@
   * @returns
   */
  const getRoleList = (params: any): Promise<ResponetFrom> => {
-   return httpGet('/user/getRoleList', params);
+   return httpPost('/user/getRoleList', params);
  };
  
  export default {
+   login,
    getUserList,
    getRoleList
  };
