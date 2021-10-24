@@ -3,7 +3,7 @@ import { Table,Form, Input, Button } from 'antd';
 import OrderApi from '@/apis/OrderApi';
 import './BusinessList.less';
 import DynamicModal from '@/Compoents/DynamicModal';
-import { comMapInte, TableColumnType, TableDataType } from './Interface';
+import { comMapInte, TableColumnType, TableDataType } from '@/Interface/common';
 const AddBusines=lazy(() => import('./AddBusines'));
 
 const columns:Array<TableColumnType> = [

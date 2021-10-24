@@ -14,7 +14,7 @@ body {
 
 .main-wrapper {
   display: flex;
-  height: calc(100vh - 103px);
+  min-height: calc(100vh - 192px);
   .main-com {
     background-color: @white-color;
     margin-left: 20px;
@@ -33,13 +33,15 @@ body {
   }
 }
 
-
-
 .flex{
   display: flex;
 }
 .flex-1{
   flex: 1;
+}
+.in-flex-c{
+  display: inline-flex;
+  align-items: center;
 }
 .m-l-10{
   margin-left: 10px;
@@ -52,4 +54,13 @@ body {
 }
 .pointer{
   cursor: pointer;
+}
+
+.inline{
+  display: inline-block;
+}
+.back-contain{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }

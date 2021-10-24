@@ -1,6 +1,7 @@
 import { Button,  Form, Input, Upload } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import React, { FC, useState } from 'react';
+
 interface propsType{
   onOk:(values:any)=>void,
   onCancel:(values:any)=>void,

@@ -7,7 +7,7 @@ import { dispatchLogin } from '@/store/Actions';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { useDispatch,useSelector } from 'react-redux';
 import { userInfoType,StoreState } from '@/store/StoreState';
-
+import logo from '@/assets/images/header-logo.svg';
 const Header: FC = () => {
   const [,writeState]=useLocalStorage('token','');
   const history = useHistory();
@@ -21,20 +21,21 @@ const Header: FC = () => {
   const menu = (
     <Menu>
       <Menu.Item>
-        <a onClick={ onBack }>退出</a>
+        <a onClick={ onBack }>退出系统</a>
       </Menu.Item>
     </Menu>
   );
   
   return (
     <div className="header-warp flex">
-       <div className="flex-1">
-       
+       <div className="flex-1 in-flex-c">
+         <img className='logo' src={logo} alt="logo" />
+         <h1 className='h1'>鬼鬼电商管理系统</h1>
        </div>
-       <Dropdown overlay={menu}>
+       <Dropdown overlay={ menu }>
         <div className='pointer'> 
-          <span className='m-r-10'>{userInfo.userName}</span>
-          <Avatar size={ 46 } icon={ <UserOutlined /> } />
+          <span className='m-r-10'>{ userInfo.userName }</span>
+          <Avatar src={ userInfo.pic } size={ 46 } icon={ <UserOutlined /> } />
         </div>
       </Dropdown>
     </div>

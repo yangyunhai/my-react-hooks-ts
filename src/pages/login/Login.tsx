@@ -8,7 +8,10 @@ import { dispatchLogin } from '@/store/Actions';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import { userInfoType } from '@/store/StoreState';
 import { filterRoute2Path } from '@/uilts/index';
-
+const mockUserInfo={
+  roles:'order,order-list,business-list,user-list,user-role',
+  pic:'https://images.pexels.com/users/avatars/109303118/kyle-karbowski-380.jpeg?auto=compress&fit=crop&h=60&w=60',
+}
 const Login: FC = () => {
   const [,writeState]=useLocalStorage('token','');
   const dispatch = useDispatch();
@@ -16,7 +19,7 @@ const Login: FC = () => {
   
   const onFinish = (values: any) => {
     //模拟获取数据了
-    const userInfo:userInfoType={userName:'鬼鬼',roles:'order,order-list,business-list'};
+    const userInfo:userInfoType={userName:values.userName,...mockUserInfo};
     const token=new Date().getTime().toString();
     dispatch(dispatchLogin({isLogin:true,userInfo}));
     writeState(token);

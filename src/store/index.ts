@@ -16,7 +16,8 @@ const defaultSate: StoreState = {
   isLogin: false,
   userInfo: {
     userName: '',
-    roles: ''
+    roles: '',
+    pic:''
   }
 };
 

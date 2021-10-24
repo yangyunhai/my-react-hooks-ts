@@ -6,7 +6,8 @@ const {
   addWebpackAlias,
   fixBabelImports,
   addLessLoader,
-  addWebpackPlugin
+  addWebpackPlugin,
+  addWebpackModuleRule
 } = require('customize-cra')
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const BundleAnalyzerPlugin =
@@ -84,8 +85,17 @@ const addLessStyle=()=>(config)=>{
  return config
 }
 
+
 module.exports = {
   webpack: override(
+    addWebpackModuleRule({
+      test: /\.svg$/,
+      include: path.resolve(__dirname, './src/assets/icons'), // 处理指定svg的文件
+      use: [{
+            loader: 'svg-sprite-loader',
+            options: {symbolId: "icon-[name]"}
+        }]
+    }),
     // 配置路径别名
     addWebpackAlias({
       '@': path.resolve('src')

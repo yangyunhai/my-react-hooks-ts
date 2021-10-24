@@ -1,8 +1,10 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { Menu, MenuTheme } from 'antd';
+import './index.less';
 import routes from '@/routes/index';
 import { RouterType } from '@/routes/interface';
 import { useHistory, Link } from 'react-router-dom';
+import SvgIcon from '@/Compoents/SvgIcon';
 
 interface menKey {
   selectKeys: Array<string>;
@@ -25,7 +27,7 @@ const getMenuKeys = (pathname: string): menKey => {
           keys.push(item.key);
           selectKeys.push(citem.key);
         } else {
-          getMenMap(item, citem.children);
+          getMenMap(citem, citem.children);
         }
         return citem;
       });
@@ -36,46 +38,40 @@ const getMenuKeys = (pathname: string): menKey => {
 };
 
 const Mens: FC<Props> = (props: Props) => {
-  const [selectedKeys, setSelectedKeys] = useState<Array<string>>([]);
-  const [defaultOpenKeys, setDefaultOpenKeys] = useState<Array<string>>([]);
-  const [theme] = useState<MenuTheme>('light');
   const history = useHistory();
-
+  const keys = getMenuKeys(history.location.pathname);
+  const [selectedKeys, setSelectedKeys] = useState<Array<string>>(keys.selectKeys);
+  const [defaultOpenKeys, setDefaultOpenKeys] = useState<Array<string>>(keys.keys);
+  const [theme] = useState<MenuTheme>('light');
+ 
   const onHandleClick = event => {
     const key=event.keyPath[event.keyPath.length-1]
     setDefaultOpenKeys([key]);
     setSelectedKeys([event.key]);
   };
-
-  useEffect(() => {
-    const keys = getMenuKeys(history.location.pathname);
-    if (keys.keys.length > 0) {
-      setDefaultOpenKeys(keys.keys);
-      setSelectedKeys(keys.selectKeys);
-    }
-  }, [history.location.pathname]);
   return (
     <Menu
+      className='menu-com'
       theme={ theme }
       style={ { width: 256 } }
-      selectedKeys={ selectedKeys }
-      openKeys={ defaultOpenKeys }
+      defaultSelectedKeys={ selectedKeys }
+      defaultOpenKeys={ defaultOpenKeys }
       onClick={ onHandleClick }
       mode="inline">
       {routes
         .filter(route => {
-          return props.roles && props.roles.indexOf(route.key) !== -1;
+          return (props.roles && props.roles.indexOf(route.key) !== -1)||false;
         })
         .map((route: RouterType) => {
           return (
-            <SubMenu key={route.key} title={route.title}>
+            <SubMenu key={route.key} title={route.title} icon={<SvgIcon className={'icon-'+route.key} icon={route.key}/>}>
               {route.children
                 .filter(route => {
-                  return props.roles && props.roles.indexOf(route.key) !== -1;
+                  return (props.roles && props.roles.indexOf(route.key) !== -1)||false;
                 })
                 .map((croute: RouterType) => {
                   return (
-                    <Menu.Item key={croute.key}>
+                    <Menu.Item key={croute.key} icon={<SvgIcon className={'icon-'+croute.key} icon={croute.key}/>}>
                       <Link to={croute.path}>{croute.title}</Link>
                     </Menu.Item>
                   );
