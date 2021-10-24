@@ -4,6 +4,7 @@ import OrderApi from '@/apis/OrderApi';
 import './BusinessList.less';
 import DynamicModal from '@/compoents/DynamicModal';
 import { comMapInte, TableColumnType, TableDataType } from '@/Interface/common';
+import Auth from '@/compoents/Auth';
 const AddBusines=lazy(() => import('./AddBusines'));
 
 const columns:Array<TableColumnType> = [
@@ -113,7 +114,9 @@ const BusinessList: FC = () => {
 
         <Form.Item>
           <Button htmlType='submit' type='primary'>查询</Button>
-          <Button className='m-l-20' type='primary' onClick={ ()=>onAdd('AddBusines') }>新增商品</Button>
+          <Auth authKey='add-business'>
+            <Button className='m-l-20' type='primary' onClick={ ()=>onAdd('AddBusines') }>新增商品</Button>
+          </Auth>
         </Form.Item>
       </Form>
 

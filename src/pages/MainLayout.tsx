@@ -24,10 +24,10 @@ const AppLayout: FC = () => {
   const userInfo:userInfoType = useSelector((state:StoreState) => state.userInfo);
   return (
     <section>
-     <Header></Header>
+      <Header></Header>
       <div className="main-wrapper">
         <div className="main-mens">
-          <Mens roles={userInfo.roles}></Mens>
+          <Mens auths={userInfo.auths}></Mens>
         </div>
         <div className="main-com">
           <Breadcrumbs></Breadcrumbs>
@@ -37,7 +37,7 @@ const AppLayout: FC = () => {
           {/* 其他路由 */}
           {
             list.filter((route)=>{
-              return userInfo.roles&&userInfo.roles.indexOf(route.key)!==-1
+              return userInfo.auths&&userInfo.auths.indexOf(route.key)!==-1
             }).map(route => {
               return (
                 <Route

@@ -21,25 +21,33 @@ const Login: FC = () => {
   const [loading,setLoading] =useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
+  const onShowMsg=(msg:string)=>{
+    notification.error({
+      message: '温馨提示',
+      description:msg,
+    });
+  }
 
   const onFinish = (values: LoginType) => {
     UserApi.login(values)
     .then((res:any)=>{
       const userInfo:userInfoType={userName:values.userName,...res.data};
-      //存储用户信息
-      dispatch(dispatchLogin({isLogin:true,userInfo}));
-      //独立存储token
-      writeState(userInfo.token);
-      //根据账号权限获取默认第一个跳转页面
-      const homePath=filterRoute2Path(routes,userInfo.roles);
-      history.push(homePath);
+      if(userInfo.auths){
+        //存储用户信息
+        dispatch(dispatchLogin({isLogin:true,userInfo}));
+        //独立存储token
+        writeState(userInfo.token);
+        //根据账号权限获取默认第一个跳转页面
+        const homePath=filterRoute2Path(routes,userInfo.auths);
+        history.push(homePath);
+      }else{
+        onShowMsg('暂无权限!');
+      }
+      
     })
     .catch(()=>{
       writeState('');
-      notification.error({
-        message: '温馨提示',
-        description:'账号或密码错误!',
-      });
+      onShowMsg('账号或密码错误!');
     })
     .finally(()=>{
       setLoading(false)

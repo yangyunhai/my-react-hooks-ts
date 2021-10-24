@@ -8,6 +8,11 @@ interface selectItem {
   path:string,
 }
 
+/**
+ * 根据路由名称获取导航数据
+ * @param pathname 
+ * @returns 
+ */
 const getBreadcrumbs=(pathname:string):Array<selectItem>=>{
   let mens:Array<selectItem>=[];
   for(let i=0;i<routes.length;i++){
@@ -36,6 +41,8 @@ const Breadcrumbs: FC = () => {
     const breadcrumbs=getBreadcrumbs(history.location.pathname);
     if(breadcrumbs.length>0){
       setMens(breadcrumbs)
+    }else{
+      setMens([])
     }
   },[history.location.pathname])
   return (

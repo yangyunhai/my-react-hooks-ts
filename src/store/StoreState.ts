@@ -1,6 +1,6 @@
 export interface userInfoType {
   userName: string;
-  roles: string;
+  auths: string;
   pic: string;
   token?: string;
 }

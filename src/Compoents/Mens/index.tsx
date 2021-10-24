@@ -12,11 +12,16 @@ interface menKey {
 }
 
 interface Props {
-  roles: string;
+  auths: string;
 }
 
 const { SubMenu } = Menu;
 
+/**
+ * 根据当前页面路由key获取选中项
+ * @param pathname 
+ * @returns 
+ */
 const getMenuKeys = (pathname: string): menKey => {
   let keys: Array<string> = [];
   let selectKeys: Array<string> = [];
@@ -44,11 +49,6 @@ const Mens: FC<Props> = (props: Props) => {
   const [defaultOpenKeys, setDefaultOpenKeys] = useState<Array<string>>(keys.keys);
   const [theme] = useState<MenuTheme>('light');
  
-  const onHandleClick = event => {
-    const key=event.keyPath[event.keyPath.length-1]
-    setDefaultOpenKeys([key]);
-    setSelectedKeys([event.key]);
-  };
   return (
     <Menu
       className='menu-com'
@@ -56,18 +56,18 @@ const Mens: FC<Props> = (props: Props) => {
       style={ { width: 256 } }
       defaultSelectedKeys={ selectedKeys }
       defaultOpenKeys={ defaultOpenKeys }
-      onClick={ onHandleClick }
       mode="inline">
+      {/* 根据当前账号权限keys过滤有效菜单 */}
       {routes
         .filter(route => {
-          return (props.roles && props.roles.indexOf(route.key) !== -1)||false;
+          return (props.auths && props.auths.indexOf(route.key) !== -1)||false;
         })
         .map((route: RouterType) => {
           return (
             <SubMenu key={route.key} title={route.title} icon={<SvgIcon className={'icon-'+route.key} icon={route.key}/>}>
               {route.children
                 .filter(route => {
-                  return (props.roles && props.roles.indexOf(route.key) !== -1)||false;
+                  return (props.auths && props.auths.indexOf(route.key) !== -1)||false;
                 })
                 .map((croute: RouterType) => {
                   return (

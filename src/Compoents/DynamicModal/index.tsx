@@ -31,4 +31,5 @@ const DynamicModal: FC<Props> = (props: Props=defaultProps) => {
     </Modal>
   );
 };
+
 export default DynamicModal;
