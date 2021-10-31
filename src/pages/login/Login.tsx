@@ -43,7 +43,6 @@ const Login: FC = () => {
       }else{
         onShowMsg('暂无权限!');
       }
-      
     })
     .catch(()=>{
       writeState('');

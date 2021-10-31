@@ -1,8 +1,11 @@
-## Copyright (c) 2021 程序员鬼哥
+![React Hooks Typescript实战开发](https://z3.ax1x.com/2021/10/31/Ipw1Wn.md.png)
 
->react-hooks-ts项目模块
-* 免费学习资料
-* 大厂面试题
-* 微信公众号搜索：程序员鬼哥
-
-线上地址:[https://npmhook.com/react-hooks-ts-admin](https://npmhook.com/react-hooks-ts-admin)
+### 学习博客
+>微信公众号搜索：`程序员鬼哥`,免费获取
+1. 精选免费学习资料
+2. 大厂面试题
+3. 学习路线知识图谱
+### 作者微信
+![作者微信](https://z3.ax1x.com/2021/10/31/IpwRTe.jpg)
+### 线上地址
+[https://npmhook.com/react-hooks-ts-admin](https://npmhook.com/react-hooks-ts-admin)
