@@ -6,6 +6,6 @@
 2. 大厂面试题
 3. 学习路线知识图谱
 ### 作者微信
-![作者微信](https://z3.ax1x.com/2021/10/31/IpwRTe.jpg)
+<img src="https://z3.ax1x.com/2021/10/31/IpwRTe.jpg"  height="300" width="300">
 ### 线上地址
 [https://npmhook.com/react-hooks-ts-admin](https://npmhook.com/react-hooks-ts-admin)
