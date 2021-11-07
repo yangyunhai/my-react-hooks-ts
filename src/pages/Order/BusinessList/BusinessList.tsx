@@ -3,7 +3,7 @@ import { Table,Form, Input, Button } from 'antd';
 import OrderApi from '@/apis/OrderApi';
 import './BusinessList.less';
 import DynamicModal from '@/compoents/DynamicModal';
-import { comMapInte, TableColumnType, TableDataType } from '@/Interface/common';
+import { comMapType, TableColumnType, TableDataType } from '@/Interface/common';
 import Auth from '@/compoents/Auth';
 const AddBusines=lazy(() => import('./AddBusines'));
 
@@ -48,10 +48,10 @@ const columns:Array<TableColumnType> = [
   }
 ];
 
-const comMap:comMapInte={
+const comMap:comMapType={
   'AddBusines':{
     title:'添加商品',
-    comKey:'AddBusines'
+    comName:'AddBusines'
   }
 }
 
@@ -59,7 +59,7 @@ const BusinessList: FC = () => {
   const [tableList,setTableList]=useState<Array<TableDataType>>([]);
   const [tableLoading,setTableLoading]=useState<boolean>(false);
   const [visible,setVisible]=useState<boolean>(false);
-  const [comKey,setComKey]=useState<string>(null);
+  const [comName,setComName]=useState<string>(null);
   const [form] = Form.useForm();
 
   const onFinish=(fieldsValue: any)=>{
@@ -81,14 +81,14 @@ const BusinessList: FC = () => {
   const onCancel=()=>{
     setVisible(false);
   }
-  const onAdd=(comKey:string)=>{
-    setComKey(comKey);
+  const onAdd=(comName:string)=>{
+    setComName(comName);
     setVisible(true);
   }
 
   const getChiCom=()=>{
-    switch(comKey){
-      case comMap.AddBusines.comKey:
+    switch(comName){
+      case comMap.AddBusines.comName:
         return <AddBusines onOk={ onOk } onCancel={ onCancel } data={{}}/>
     }
   }
@@ -114,7 +114,7 @@ const BusinessList: FC = () => {
 
         <Form.Item>
           <Button htmlType='submit' type='primary'>查询</Button>
-          <Auth authKey='add-business'>
+          <Auth jurisdictionKey='add-business'>
             <Button className='m-l-20' type='primary' onClick={ ()=>onAdd('AddBusines') }>新增商品</Button>
           </Auth>
         </Form.Item>
@@ -122,7 +122,7 @@ const BusinessList: FC = () => {
 
       <Table columns={ columns } dataSource={ tableList } loading={ tableLoading }/>
 
-      <DynamicModal {...comMap[comKey]} visible={ visible } onCancel={ onCancel }>
+      <DynamicModal {...comMap[comName]} visible={ visible } onCancel={ onCancel }>
         { getChiCom() }
       </DynamicModal>
     </section>

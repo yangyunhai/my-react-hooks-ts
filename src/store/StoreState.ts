@@ -1,6 +1,6 @@
 export interface userInfoType {
   userName: string;
-  auths: string;
+  jurisdictions: string;
   pic: string;
   token?: string;
 }

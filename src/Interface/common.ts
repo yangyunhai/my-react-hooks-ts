@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 interface DynamicModalType {
   title: string;
-  comKey: string;
+  comName: string;
 }
 
 export interface TableColumnType {
@@ -22,6 +22,6 @@ export interface TableDataType {
   createtime: string;
 }
 
-export interface comMapInte {
+export interface comMapType {
   [key: string]: DynamicModalType;
 }

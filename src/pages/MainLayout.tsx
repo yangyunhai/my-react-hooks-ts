@@ -9,25 +9,43 @@ import Header from "@/compoents/Header";
 import { useSelector } from 'react-redux';
 import { userInfoType,StoreState } from '@/store/StoreState';
 
-const getRouters=():Array<RouterType>=>{
+/**
+/**
+ * 获取所有路由页面
+ * @returns 
+ */
+ const getRouters=():Array<RouterType>=>{
   let list=[];
   routes.map((item)=>{
-    list=list.concat(item.children?item.children:[]);
+    list=list.concat(item.children||[]);
     return item;
   })
   return list;
 }
 
-const list:Array<RouterType>=getRouters();
 
-const AppLayout: FC = () => {
-  const userInfo:userInfoType = useSelector((state:StoreState) => state.userInfo);
+const filterRoutes=(routes:Array<RouterType>,jurisdictions:string):Array<RouterType>=>{
+  //因为key存储关键词重复的可能，所以转成数组
+  const jurList:Array<string>=(jurisdictions||'').split(',');
+  return routes.filter((route)=>{
+    //如果包含当前路由的key则算具有对应权限
+    return jurList.includes(route.key)
+  })
+}
+
+const MainLayout: FC = () => {
+   //获取所有路由页面
+   const routes:Array<RouterType>=getRouters();
+   //获取登录后设置的用户信息
+   const userInfo:userInfoType = useSelector((state:StoreState) => state.userInfo);
+   //根据权限字符串过滤路由
+   const routeList:Array<RouterType>=filterRoutes(routes,userInfo.jurisdictions);
   return (
     <section>
       <Header></Header>
       <div className="main-wrapper">
         <div className="main-mens">
-          <Mens auths={userInfo.auths}></Mens>
+          <Mens jurisdictions={userInfo.jurisdictions}></Mens>
         </div>
         <div className="main-com">
           <Breadcrumbs></Breadcrumbs>
@@ -36,14 +54,13 @@ const AppLayout: FC = () => {
           </Route>
           {/* 其他路由 */}
           {
-            list.filter((route)=>{
-              return userInfo.auths&&userInfo.auths.indexOf(route.key)!==-1
-            }).map(route => {
+            routeList.map(route => {
               return (
                 <Route
                   path={route.path}
                   key={route.key}
-                  component={route.component}></Route>
+                  component={route.component}>
+               </Route>
               );
             })
           }
@@ -53,4 +70,4 @@ const AppLayout: FC = () => {
   );
 };
 
-export default AppLayout;
+export default MainLayout;

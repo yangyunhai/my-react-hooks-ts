@@ -32,13 +32,13 @@ const Login: FC = () => {
     UserApi.login(values)
     .then((res:any)=>{
       const userInfo:userInfoType={userName:values.userName,...res.data};
-      if(userInfo.auths){
+      if(userInfo.jurisdictions){
         //存储用户信息
         dispatch(dispatchLogin({isLogin:true,userInfo}));
         //独立存储token
         writeState(userInfo.token);
         //根据账号权限获取默认第一个跳转页面
-        const homePath=filterRoute2Path(routes,userInfo.auths);
+        const homePath=filterRoute2Path(routes,userInfo.jurisdictions);
         history.push(homePath);
       }else{
         onShowMsg('暂无权限!');

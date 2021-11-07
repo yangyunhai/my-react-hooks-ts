@@ -5,7 +5,7 @@ Mock.mock(`${process.env.REACT_APP_BASE_URL}/user/login`, 'post', {
   msg: '@cparagraph',
   data:{
     token:'@time()',
-    auths:'order,order-list,business-list,user-list,user-role,add-business',
+    jurisdictions:'order,order-list,business-list,user-list,user-role,add-business',
     pic:'https://images.pexels.com/users/avatars/109303118/kyle-karbowski-380.jpeg?auto=compress&fit=crop&h=60&w=60',
   }
 });

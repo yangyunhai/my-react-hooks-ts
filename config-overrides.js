@@ -74,9 +74,9 @@ const addOptimization = () => (config) => {
 const addLessStyle=()=>(config)=>{
   const loaders = config.module.rules.find(rule => Array.isArray(rule.oneOf)).oneOf;
   const lessIndex=loaders.findIndex((item)=>{
-    return item.test&&item.test.toString().indexOf('.less')!=-1
+    return item.test&&item.test.toString().indexOf('.less')!==-1
   })
-  if(lessIndex!=-1){
+  if(lessIndex!==-1){
   loaders[lessIndex].use.push({
        loader: 'style-resources-loader',
        options: {
