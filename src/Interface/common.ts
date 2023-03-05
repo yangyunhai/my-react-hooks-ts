@@ -25,3 +25,10 @@ export interface TableDataType {
 export interface comMapType {
   [key: string]: DynamicModalType;
 }
+
+export interface QueryTableType {
+  pageSize: Number;
+  pageNumber: Number;
+  pageCount: Number;
+  queryKey: string;
+}

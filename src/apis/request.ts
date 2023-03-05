@@ -16,6 +16,14 @@ export interface ResponetFrom {
   msg: State;
 }
 
+const JsonParse = (res:any):Object=>{
+  try {
+    return JSON.parse(res.data)
+  } catch (error) {
+    return {}
+  }
+}
+
 //拦截器部分
 axios.interceptors.request.use(
   function (config) {
@@ -49,13 +57,16 @@ const request = (options: any): Promise<ResponetFrom> => {
     options
   );
 
-  return new Promise(resolve => {
+  return new Promise((resolve:Function,reject:Function) => {
     axios(axiosOptions)
       .then((res: any) => {
-        resolve(JSON.parse(res.data));
+        resolve({
+          ...JsonParse(res.data),
+          msg: State.SUCCESS
+        });
       })
       .catch(error => {
-        resolve({
+        reject({
           data: error,
           msg: State.ERROR
         });
@@ -103,7 +114,7 @@ export const httpFormData = (
   url: string,
   params: any = {}
 ): Promise<ResponetFrom> => {
-  const headers = {
+  const headers:any = {
     'Content-Type': 'multipart/form-data'
   };
   const formData = new FormData();

@@ -21,8 +21,10 @@ module.exports = {
     "no-anonymous-default-export":"off",
     "react/jsx-uses-react": 2,
     "no-unused-vars":"off",
-    "no-unused-vars": 'off',
     'prettier/prettier': 'off',
+    "react/jsx-uses-react": 2,
+    "rerere": "off",
+    "@typescript-eslint/no-unused-vars": ["off"],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
     // 其余配置项自行添加

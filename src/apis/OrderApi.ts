@@ -1,6 +1,7 @@
 /** 
  * 订单模块接口
  */
+import { QueryTableType } from '@/Interface/common';
 import { httpPost, ResponetFrom } from './request';
 
 /**
@@ -8,7 +9,7 @@ import { httpPost, ResponetFrom } from './request';
  * @param params
  * @returns
  */
-const getOrderList = (params: any): Promise<ResponetFrom> => {
+const getOrderList = (params: QueryTableType): Promise<ResponetFrom> => {
   return httpPost('/order/getOrderList', params);
 };
 
@@ -17,7 +18,7 @@ const getOrderList = (params: any): Promise<ResponetFrom> => {
  * @param params
  * @returns
  */
-const getBusinessList = (params: any): Promise<ResponetFrom> => {
+const getBusinessList = (params: QueryTableType): Promise<ResponetFrom> => {
   return httpPost('/order/getBusinessList', params);
 };
 
