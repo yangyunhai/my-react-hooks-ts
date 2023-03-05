@@ -18,7 +18,7 @@ export interface ResponetFrom {
 
 const JsonParse = (res:any):Object=>{
   try {
-    return JSON.parse(res.data)
+    return JSON.parse(res)
   } catch (error) {
     return {}
   }

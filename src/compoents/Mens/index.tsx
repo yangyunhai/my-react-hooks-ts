@@ -5,6 +5,7 @@ import routes from '@/routes/index';
 import { RouterType } from '@/routes/interface';
 import { useHistory, Link } from 'react-router-dom';
 import SvgIcon from '@/compoents/SvgIcon';
+import { routesEnum } from '@/routes/config';
 
 interface menKey {
   selectKeys: Array<string>;
@@ -25,10 +26,11 @@ const { SubMenu } = Menu;
 const getMenuKeys = (pathname: string): menKey => {
   let keys: Array<string> = [];
   let selectKeys: Array<string> = [];
+  const defaultRoute = pathname==="/"?routesEnum.defaultPath:pathname;
   const getSelectKey = (item:RouterType, routesList:Array<RouterType>) => {
     if (routesList && routesList.length > 0) {
       routesList.map((citem: RouterType) => {
-        if (citem.path === pathname) {
+        if (citem.path === defaultRoute) {
           keys.push(item.key);
           selectKeys.push(citem.key);
         } else {

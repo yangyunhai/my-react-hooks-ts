@@ -32,3 +32,10 @@ export interface QueryTableType {
   pageCount: Number;
   queryKey: string;
 }
+
+
+export interface LoginType{
+  userName:string,
+  userPassword:string,
+  userSetNumber:boolean
+}

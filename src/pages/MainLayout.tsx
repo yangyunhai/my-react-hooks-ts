@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
 import routes from '@/routes/index';
 import NoMatch from '../pages/NoMatch';
-import { Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { RouterType } from "@/routes/interface";
 import Mens from "@/compoents/Mens";
 import Breadcrumbs from "@/compoents/Breadcrumbs";
 import Header from "@/compoents/Header";
 import { useSelector } from 'react-redux';
 import { userInfoType,StoreState } from '@/store/StoreState';
+import { routesEnum } from '@/routes/config';
 
 /**
 /**
@@ -40,7 +41,9 @@ const MainLayout: FC = () => {
    const userInfo:userInfoType = useSelector((state:StoreState) => state.userInfo);
    //根据权限字符串过滤路由
    const routeList:Array<RouterType>=filterRoutes(routes,userInfo.jurisdictions);
-  return (
+   //默认路由
+   const redirectRoute = routesEnum.defaultPath;
+   return (
     <section>
       <Header></Header>
       <div className="main-wrapper">
@@ -51,7 +54,8 @@ const MainLayout: FC = () => {
           <Breadcrumbs></Breadcrumbs>
           <Route path="/no-match" key="no-match">
             <NoMatch></NoMatch>
-          </Route>
+          </Route> 
+          <Redirect path="/" to={redirectRoute} />
           {/* 其他路由 */}
           {
             routeList.map(route => {

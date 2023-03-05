@@ -51,7 +51,7 @@ const getBreadcrumbs = (pathname: string): Array<selectItem> => {
  * @returns
  */
 const filterAround = (index: number, list: Array<selectItem>) => {
-  return (index == 0 && list.length < 3) || index == list.length - 1;
+  return (index === 0 && list.length < 3) || index === list.length - 1;
 };
 
 const Breadcrumbs: FC = () => {

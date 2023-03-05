@@ -1,7 +1,7 @@
 /** 
  * 用户模块接口
  */
- import { QueryTableType } from '@/Interface/common';
+ import { QueryTableType,LoginType } from '@/Interface/common';
 import { httpPost, ResponetFrom } from './request';
 
  /**
@@ -9,7 +9,7 @@ import { httpPost, ResponetFrom } from './request';
   * @param params
   * @returns
   */
-  const login = (params: QueryTableType): Promise<ResponetFrom> => {
+  const login = (params: LoginType): Promise<ResponetFrom> => {
     return httpPost('/user/login', params);
   };
 

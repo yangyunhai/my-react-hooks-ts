@@ -14,7 +14,8 @@
     "react",
     "hooks",
     "typescript",
-    "react hooks实战书籍"
+    "react hooks实战书籍",
+    "react hooks企业开发实战"
   ],
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.33.0",

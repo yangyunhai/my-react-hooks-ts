@@ -9,12 +9,7 @@ import { userInfoType } from '@/store/StoreState';
 import { filterRoute2Path } from '@/uilts/index';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import UserApi from '@/apis/UserApi';
-
-interface LoginType{
-  userName:string,
-  userPassword:string,
-  userSetNumber:boolean
-}
+import { LoginType } from '@/Interface/common';
 
 const Login: FC = () => {
   const [,writeState]=useLocalStorage('token','');
